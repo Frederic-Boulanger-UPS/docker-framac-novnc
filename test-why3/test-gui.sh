@@ -1,2 +1,2 @@
 #!/bin/sh
-why3 ide pgcd.c
+why3 ide division.mlw

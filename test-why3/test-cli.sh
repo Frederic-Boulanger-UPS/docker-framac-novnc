@@ -1,2 +1,2 @@
 #!/bin/sh
-why3 prove pgcd.c
+why3 prove division.mlw
