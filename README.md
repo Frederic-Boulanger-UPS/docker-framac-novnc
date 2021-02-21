@@ -17,9 +17,9 @@ Just run the image in a container as follows:
 	docker run --rm --detach \
 		--volume ${PWD}:/workspace:rw \
 		--publish 6080:80 \
-		--name $(NAME) \
+		--name framac-novnc \
 		--env="RESOLUTION=1200x800" \
-		$(REPO)$(NAME):$(TAG)-$(ARCH)
+		fredblgr/framac-novnc:2021
 ```
 
 and then point your browser to ```http://localhost:6080```
