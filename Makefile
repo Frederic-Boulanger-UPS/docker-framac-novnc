@@ -5,7 +5,7 @@ NAME    = framac-novnc
 ARCH    = `uname -m`
 TAG     = 2021
 ARCH   := $$(arch=$$(uname -m); if [[ $$arch == "x86_64" ]]; then echo amd64; else echo $$arch; fi)
-
+RESOL   = 1440x900
 ARCHS   = amd64 arm64
 IMAGES := $(ARCHS:%=$(REPO)$(NAME):$(TAG)-%)
 PLATFORMS := $$(first="True"; for a in $(ARCHS); do if [[ $$first == "True" ]]; then printf "linux/%s" $$a; first="False"; else printf ",linux/%s" $$a; fi; done)
@@ -77,7 +77,7 @@ run:
 		--volume ${PWD}:/workspace:rw \
 		--publish 6080:80 \
 		--name $(NAME) \
-		--env="RESOLUTION=1200x800" \
+		--env="RESOLUTION=$(RESOL)" \
 		$(REPO)$(NAME):$(TAG)-$(ARCH)
 	sleep 5
 	open http://localhost:6080 || xdg-open http://localhost:6080 || echo "http://localhost:6080"
@@ -87,7 +87,7 @@ student:
 		--volume ${PWD}:/workspace:rw \
 		--publish 6080:80 \
 		--name $(NAME) \
-		--env="RESOLUTION=1200x800" \
+		--env="RESOLUTION=$(RESOL)" \
 		--env="USER=student" --env="PASSWORD=CS3ASL" \
 		$(REPO)$(NAME):$(TAG)-$(ARCH)
 	sleep 5
@@ -98,6 +98,6 @@ debug:
 		--volume ${PWD}:/workspace:rw \
 		--publish 6080:80 \
 		--name $(NAME) \
-		--env="RESOLUTION=1200x800" \
+		--env="RESOLUTION=$(RESOL)" \
 		--entrypoint=bash \
 		$(REPO)$(NAME):$(TAG)-$(ARCH)
