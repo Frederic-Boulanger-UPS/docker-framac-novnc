@@ -62,3 +62,10 @@ RUN mkdir -p /home/ubuntu \
     && mv /home/ubuntu/.why3.conf /root/ ; \
     echo 'cp /root/.why3.conf ${HOME}' >> /root/.novnc_setup
 
+RUN wget https://git.frama-c.com/pub/meta/-/archive/0.1/frama-c-metacsl-0.1.tar.gz \
+	&& tar zxf frama-c-metacsl-0.1.tar.gz \
+	&& cd `ls -d meta-0.1-*` \
+	&& autoconf && ./configure \
+	&& make \
+	&& make install
+	
