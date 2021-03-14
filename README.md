@@ -1,6 +1,6 @@
 docker-framac-novnc
 ====
-A docker image with [Why3](http://why3.lri.fr/) and [Frama-C](https://frama-c.com/) installed in a [ubuntu-novnc image](https://hub.docker.com/r/fredblgr/ubuntu-novnc).
+A docker image with [Why3](http://why3.lri.fr/) and [Frama-C](https://frama-c.com/) with MetAcsl, installed in a [ubuntu-novnc image](https://hub.docker.com/r/fredblgr/ubuntu-novnc).
 
 This allows you to run Why3 and Frama-C on any computer with Docker and a web browser.  
 Supported architectures are `amd64` (`x86_64`) and `arm64` (`aarch64`).
