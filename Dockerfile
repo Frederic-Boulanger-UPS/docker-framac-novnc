@@ -51,6 +51,8 @@ RUN tar zxf frama-c-22.0.tar.gz; cd frama-c-22.0; autoconf; ./configure; \
 RUN if [ "$arch" = "amd64" ]; then pip3 install toml; fi
 RUN if [ "$arch" = "amd64" ]; then apt-get install -y openjdk-14-jdk; fi
 
+RUN apt autoremove && apt autoclean
+
 RUN if [ "$arch" = "amd64" ]; then wget https://github.com/CVC4/CVC4/archive/1.7.tar.gz \
 	&& tar zxf 1.7.tar.gz \
 	&& cd CVC4-1.7; ./contrib/get-antlr-3.4 && ./configure.sh \
