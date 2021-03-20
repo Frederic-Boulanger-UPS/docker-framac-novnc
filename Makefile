@@ -39,6 +39,9 @@ manifest:
 	 done
 	docker manifest push $(REPO)$(NAME):$(TAG)
 
+rmmanifest:
+	docker manifest rm $(REPO)$(NAME):$(TAG)
+
 # Create new builder supporting multi architecture images
 newbuilder:
 	docker buildx create --name newbuilder
