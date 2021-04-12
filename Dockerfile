@@ -69,5 +69,6 @@ RUN wget https://git.frama-c.com/pub/meta/-/archive/0.1/frama-c-metacsl-0.1.tar.
 	&& cd `ls -d meta-0.1-*` \
 	&& autoconf && ./configure \
 	&& make \
-	&& make install
-	
+	&& make install ; cd ..; rm -rf meta-0.1-* frama-c-metacsl-0.1.tar.gz
+
+RUN apt-get install at-spi2-core

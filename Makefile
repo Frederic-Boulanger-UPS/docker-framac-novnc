@@ -77,21 +77,22 @@ clobber:
 
 run:
 	docker run --rm --detach \
-		--volume ${PWD}:/workspace:rw \
+    --env USERNAME=`id -n -u` --env USERID=`id -u` \
+		--volume "${PWD}":/workspace:rw \
 		--publish 6080:80 \
 		--name $(NAME) \
-		--env="RESOLUTION=$(RESOL)" \
+		--env RESOLUTION="$(RESOL)" \
 		$(REPO)$(NAME):$(TAG)-$(ARCH)
 	sleep 5
 	open http://localhost:6080 || xdg-open http://localhost:6080 || echo "http://localhost:6080"
 
-student:
+runasroot:
 	docker run --rm --detach \
-		--volume ${PWD}:/workspace:rw \
+    --env USERNAME=root --env USERID=0 \
+		--volume "${PWD}":/workspace:rw \
 		--publish 6080:80 \
 		--name $(NAME) \
-		--env="RESOLUTION=$(RESOL)" \
-		--env="USER=student" --env="PASSWORD=CS3ASL" \
+		--env RESOLUTION="$(RESOL)" \
 		$(REPO)$(NAME):$(TAG)-$(ARCH)
 	sleep 5
 	open http://localhost:6080 || xdg-open http://localhost:6080 || echo "http://localhost:6080"
