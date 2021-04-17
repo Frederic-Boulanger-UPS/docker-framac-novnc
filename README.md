@@ -14,11 +14,22 @@ Usage
 Just run the image in a container as follows:
 
 ```
+  if [ -z "$SUDO_UID" ]
+  then
+    # not in sudo
+    USER_ID=`id -u`
+    USER_NAME=`id -n -u`
+  else
+    # in a sudo script
+    USER_ID=${SUDO_UID}
+    USER_NAME=${SUDO_USER}
+  fi
 	docker run --rm --detach \
-		--volume ${PWD}:/workspace:rw \
 		--publish 6080:80 \
+		--volume "${PWD}":/workspace:rw \
+    --env USERNAME=${USER_NAME} --env USERID=${USER_ID} \
+    --env RESOLUTION=1400x900 \
 		--name framac-novnc \
-		--env="RESOLUTION=1200x800" \
 		fredblgr/framac-novnc:2021
 ```
 
