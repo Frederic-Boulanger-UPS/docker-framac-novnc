@@ -87,7 +87,7 @@ run:
 	open http://localhost:6080 || xdg-open http://localhost:6080 || echo "http://localhost:6080"
 
 runasroot:
-	docker run --rm --detach \
+	docker run --rm --detach --privileged \
     --env USERNAME=root --env USERID=0 \
 		--volume "${PWD}":/workspace:rw \
 		--publish 6080:80 \

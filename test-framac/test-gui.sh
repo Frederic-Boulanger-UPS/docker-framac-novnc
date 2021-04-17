@@ -1,2 +1,2 @@
 #!/bin/sh
-frama-c-gui swap.c swap2.h
+frama-c-gui -wp swap.c swap2.h
