@@ -4,7 +4,7 @@ REPO    = fredblgr/
 NAME    = framac-novnc
 ARCH    = `uname -m`
 TAG     = 2021
-ARCH   := $$(arch=$$(uname -m); if [[ $$arch == "x86_64" ]]; then echo amd64; else echo $$arch; fi)
+ARCH   := $$(arch=$$(uname -m); if [ "$$arch" = "x86_64" ]; then echo "amd64"; elif [ "$$arch" = "aarch64" ]; then echo "arm64"; else echo $$arch; fi)
 RESOL   = 1440x900
 ARCHS   = amd64 arm64
 IMAGES := $(ARCHS:%=$(REPO)$(NAME):$(TAG)-%)

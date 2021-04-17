@@ -22,7 +22,7 @@ RUN apt-get install -y ocaml menhir \
 RUN apt-get install at-spi2-core
 
 #RUN apt-get install -y alt-ergo
-COPY altergo/alt-ergo_240_x86_64 /usr/local/bin/alt-ergo
+COPY altergo/alt-ergo_240_$arch /usr/local/bin/alt-ergo
 RUN chmod a+x /usr/local/bin/alt-ergo
 
 # Install Z3 4.8.6
@@ -30,7 +30,7 @@ RUN chmod a+x /usr/local/bin/alt-ergo
 # 	&& tar zxf z3-4.8.6.tar.gz \
 # 	&& cd z3-z3-4.8.6; env PYTHON=python3 ./configure; cd build; make; make install; \
 # 	cd ../..; rm -r z3-*
-COPY z3/z3_486_x86_64 /usr/local/bin/z3
+COPY z3/z3_486_$arch /usr/local/bin/z3
 RUN chmod a+x /usr/local/bin/z3
 
 # Install E prover
@@ -38,7 +38,7 @@ RUN chmod a+x /usr/local/bin/z3
 # 	 && tar zxf E.tgz \
 # 	 && cd E; ./configure --prefix=/usr/local; make; make install; \
 # 	 cd ..; rm -r E E.tgz
-COPY eprover/eprover_20_x86_64 /usr/local/bin/eprover
+COPY eprover/eprover_20_$arch /usr/local/bin/eprover
 RUN chmod a+x /usr/local/bin/eprover
 
 # Install CVC4
@@ -66,7 +66,7 @@ RUN tar zxf why3-1.4.0.tar.gz
 RUN cp why3-1.4.0/drivers/alt_ergo* why3-1.3.3/drivers/
 RUN cp why3-1.4.0/share/provers-detection-data.conf why3-1.3.3/share/
 RUN cd why3-1.3.3; ./configure; make ; make install ;\
-	make byte; make install-lib ; \
+	make byte; make install-lib ;
 RUN yes | rm -rf why3-*
 
 # COPY why3-1.4.0.tar.gz /root/
