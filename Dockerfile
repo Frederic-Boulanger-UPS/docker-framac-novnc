@@ -87,15 +87,14 @@ RUN mkdir -p /home/ubuntu \
 # Install Frama-C
 RUN apt-get install -y yaru-theme-icon
 RUN wget https://git.frama-c.com/pub/frama-c/-/archive/22.0/frama-c-22.0.tar.gz
-RUN tar zxf frama-c-22.0.tar.gz; cd frama-c-22.0; autoconf; ./configure; \
-		make; make install ; \
-		cd ..; rm -rf frama-c-22.0*
+RUN tar zxf frama-c-22.0.tar.gz && rm frama-c-22.0.tar.gz ; \
+    cd frama-c-22.0; autoconf; ./configure; make; make install ; \
+		cd ..; rm -rf frama-c-22.0
 
 RUN wget https://git.frama-c.com/pub/meta/-/archive/0.1/frama-c-metacsl-0.1.tar.gz \
-	&& tar zxf frama-c-metacsl-0.1.tar.gz \
+	&& tar zxf frama-c-metacsl-0.1.tar.gz && rm frama-c-metacsl-0.1.tar.gz \
 	&& cd `ls -d meta-0.1-*` \
-	&& autoconf && ./configure \
-	&& make \
-	&& make install ; cd ..; rm -rf meta-0.1-* frama-c-metacsl-0.1.tar.gz
+	&& autoconf && ./configure && make && make install ; \
+	cd ..; rm -rf meta-0.1-*
 
 RUN apt autoremove && apt autoclean

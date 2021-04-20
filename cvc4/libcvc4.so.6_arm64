@@ -1,0 +1,2 @@
+#/bin/sh
+echo "cvc4 not available on arm64"

@@ -24,13 +24,13 @@ Just run the image in a container as follows:
     USER_ID=${SUDO_UID}
     USER_NAME=${SUDO_USER}
   fi
-	docker run --rm --detach \
-		--publish 6080:80 \
-		--volume "${PWD}":/workspace:rw \
+  docker run --rm --detach \
+    --publish 6080:80 \
+    --volume "${PWD}":/workspace:rw \
     --env USERNAME=${USER_NAME} --env USERID=${USER_ID} \
     --env RESOLUTION=1400x900 \
-		--name framac-novnc \
-		fredblgr/framac-novnc:2021
+    --name framac-novnc \
+    fredblgr/framac-novnc:2021
 ```
 
 and then point your browser to ```http://localhost:6080```
