@@ -50,9 +50,9 @@ RUN if [ "$arch" = "amd64" ]; then apt-get install -y openjdk-14-jdk; fi
 # 	&& cd CVC4-1.7; ./contrib/get-antlr-3.4 && ./configure.sh \
 # 	&& cd build && make && make install \
 # 	&& cd ../.. && rm -r CVC4* && rm 1.7.tar.gz; fi
-COPY cvc4/cvc4_17_x86_64 /usr/local/bin/cvc4
-COPY cvc4/libcvc4parser.so.6 /usr/local/lib/
-COPY cvc4/libcvc4.so.6 /usr/local/lib/
+COPY cvc4/cvc4_17_$arch /usr/local/bin/cvc4
+COPY cvc4/libcvc4parser.so.6_$arch /usr/local/lib/
+COPY cvc4/libcvc4.so.6_$arch /usr/local/lib/
 RUN if [ "$arch" = "amd64" ]; \
     then chmod a+x /usr/local/bin/cvc4 ; \
 	  else rm /usr/local/bin/cvc4 /usr/local/lib/libcvc4* ; \
