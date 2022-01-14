@@ -59,8 +59,10 @@ RUN if [ "$arch" = "amd64" ]; \
 	  fi
 
 # Install why3
-RUN wget https://gforge.inria.fr/frs/download.php/file/38425/why3-1.4.0.tar.gz
-RUN wget https://gforge.inria.fr/frs/download.php/file/38367/why3-1.3.3.tar.gz
+# RUN wget https://gforge.inria.fr/frs/download.php/file/38425/why3-1.4.0.tar.gz
+# RUN wget https://gforge.inria.fr/frs/download.php/file/38367/why3-1.3.3.tar.gz
+RUN wget https://why3.gitlabpages.inria.fr/releases/why3-1.4.0.tar.gz
+RUN wget https://why3.gitlabpages.inria.fr/releases/why3-1.3.3.tar.gz
 RUN tar zxf why3-1.3.3.tar.gz
 RUN tar zxf why3-1.4.0.tar.gz
 RUN cp why3-1.4.0/drivers/alt_ergo* why3-1.3.3/drivers/
