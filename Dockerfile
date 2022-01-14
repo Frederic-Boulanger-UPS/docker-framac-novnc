@@ -43,7 +43,7 @@ RUN chmod a+x /usr/local/bin/eprover
 
 # Install CVC4
 RUN if [ "$arch" = "amd64" ]; then pip3 install toml; fi
-RUN if [ "$arch" = "amd64" ]; then apt-get install -y openjdk-14-jdk; fi
+RUN if [ "$arch" = "amd64" ]; then apt-get install -y openjdk-16-jdk; fi
 
 # RUN if [ "$arch" = "amd64" ]; then wget https://github.com/CVC4/CVC4/archive/1.7.tar.gz \
 # 	&& tar zxf 1.7.tar.gz \
