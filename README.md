@@ -5,6 +5,8 @@ A docker image with [Why3](http://why3.lri.fr/) and [Frama-C](https://frama-c.co
 This allows you to run Why3 and Frama-C on any computer with Docker and a web browser.  
 Supported architectures are `amd64` (`x86_64`) and `arm64` (`aarch64`).
 
+[Soufflé](https://souffle-lang.github.io/) and [SWI-Prolog](https://www.swi-prolog.org/) are also available on this image.
+
 Available on dockerhub at [https://hub.docker.com/r/fredblgr/framac-novnc](https://hub.docker.com/r/fredblgr/framac-novnc)
 
 Source files available on GitHub: [https://github.com/Frederic-Boulanger-UPS/docker-framac-novnc](https://github.com/Frederic-Boulanger-UPS/docker-framac-novnc)
@@ -30,7 +32,7 @@ Just run the image in a container as follows:
     --env USERNAME=${USER_NAME} --env USERID=${USER_ID} \
     --env RESOLUTION=1400x900 \
     --name framac-novnc \
-    fredblgr/framac-novnc:2021
+    fredblgr/framac-novnc:2022
 ```
 
 and then point your browser to ```http://localhost:6080```

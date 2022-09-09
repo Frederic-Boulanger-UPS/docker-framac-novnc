@@ -2,7 +2,7 @@
 REPO=fredblgr/
 NAME=framac-novnc
 ARCH=`uname -m`
-TAG=2021
+TAG=2022
 URL=http://localhost:6080
 
 if [ -z "$SUDO_UID" ]

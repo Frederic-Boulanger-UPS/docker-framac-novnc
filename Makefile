@@ -1,14 +1,16 @@
-.PHONY: build manifest buildfat check run debug push save clean clobber
+.PHONY: build manifest buildfat check run debug push save clean clobber archi opt-opam z3 eprover souffle
 
 REPO    = fredblgr/
 NAME    = framac-novnc
-ARCH    = `uname -m`
-TAG     = 2021
-ARCH   := $$(arch=$$(uname -m); if [ "$$arch" = "x86_64" ]; then echo "amd64"; elif [ "$$arch" = "aarch64" ]; then echo "arm64"; else echo $$arch; fi)
+#ARCH    = `uname -m`
+TAG     = 2022
+ARCH   := $(shell if [ `uname -m` = "x86_64" ]; then echo "amd64"; elif [ `uname -m` = "aarch64" ]; then echo "arm64"; else echo `uname -m`; fi)
 RESOL   = 1440x900
 ARCHS   = amd64 arm64
 IMAGES := $(ARCHS:%=$(REPO)$(NAME):$(TAG)-%)
 PLATFORMS := $$(first="True"; for a in $(ARCHS); do if [[ $$first == "True" ]]; then printf "linux/%s" $$a; first="False"; else printf ",linux/%s" $$a; fi; done)
+SCRIPTS := build_scripts
+BINARIES := binaries
 
 help:
 	@echo "# Available targets:"
@@ -18,12 +20,50 @@ help:
 	@echo "#   - push: push docker image to docker hub"
 
 # Build image
-build:
-	docker build --build-arg arch=$(ARCH) --tag $(REPO)$(NAME):$(TAG)-$(ARCH) .
+build: $(BINARIES)/opt-opam_$(ARCH).tgz $(BINARIES)/z3_$(ARCH) $(BINARIES)/eprover_$(ARCH) $(BINARIES)/souffle_$(ARCH).tgz
+	docker build --build-arg arch=$(ARCH) --build-arg bindir=$(BINARIES) --tag $(REPO)$(NAME):$(TAG)-$(ARCH) .
 	@danglingimages=$$(docker images --filter "dangling=true" -q); \
 	if [[ $$danglingimages != "" ]]; then \
 	  docker rmi $$(docker images --filter "dangling=true" -q); \
 	fi
+
+# Build binaries with opam (requires privileged mode)
+opt-opam: $(BINARIES)/opt-opam_$(ARCH).tgz
+
+$(BINARIES)/opt-opam_$(ARCH).tgz:
+	echo "sh /workspace/$(SCRIPTS)/buildopamstuff.sh" | \
+		docker run --privileged --rm --interactive \
+							 --volume "`pwd`":/workspace:rw  --entrypoint "bash" ubuntu:20.04
+
+# Build Z3
+z3: $(BINARIES)/z3_$(ARCH)
+
+$(BINARIES)/z3_$(ARCH):
+	echo "sh /workspace/$(SCRIPTS)/buildz3.sh" | \
+		docker run --rm --interactive \
+							 --volume "`pwd`":/workspace:rw  --entrypoint "bash" ubuntu:20.04
+
+# Build eprover
+eprover: $(BINARIES)/eprover_$(ARCH)
+
+$(BINARIES)/eprover_$(ARCH):
+	echo "sh /workspace/$(SCRIPTS)/buildeprover.sh" | \
+		docker run --rm --interactive \
+							 --volume "`pwd`":/workspace:rw  --entrypoint "bash" ubuntu:20.04
+
+# Build soufflé
+souffle: $(BINARIES)/souffle_$(ARCH).tgz
+
+$(BINARIES)/souffle_$(ARCH).tgz:
+	echo "sh /workspace/$(SCRIPTS)/buildsouffle.sh" | \
+		docker run --rm --interactive \
+							 --volume "`pwd`":/workspace:rw  --entrypoint "bash" ubuntu:20.04
+
+# Test arch
+archi:
+	echo "sh /workspace/$(SCRIPTS)/archi.sh" | \
+		docker run --rm --interactive \
+							 --volume "`pwd`":/workspace:rw  --entrypoint "bash" ubuntu:20.04
 
 # Safe way to build multiarchitecture images:
 # - build each image on the matching hardware, with the -$(ARCH) tag
