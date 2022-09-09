@@ -91,15 +91,15 @@ newbuilder:
 # - use buildx to try to build the different images using qemu for foreign architectures
 # This fails with some images because of the emulation of foreign architectures
 # --load with multiarch image fails (2021-02-15), use --push instead
-buildfat:
-	docker buildx build --push \
-	  --platform $(PLATFORMS) \
-	  --build-arg arch=$(ARCH) \
-	  --tag $(REPO)$(NAME):$(TAG) .
-	@danglingimages=$$(docker images --filter "dangling=true" -q); \
-	if [[ $$danglingimages != "" ]]; then \
-	  docker rmi $$(docker images --filter "dangling=true" -q); \
-	fi
+# buildfat:
+# 	docker buildx build --push \
+# 	  --platform $(PLATFORMS) \
+# 	  --build-arg arch=$(ARCH) \
+# 	  --tag $(REPO)$(NAME):$(TAG) .
+# 	@danglingimages=$$(docker images --filter "dangling=true" -q); \
+# 	if [[ $$danglingimages != "" ]]; then \
+# 	  docker rmi $$(docker images --filter "dangling=true" -q); \
+# 	fi
 
 push:
 	docker push $(REPO)$(NAME):$(TAG)-$(ARCH)
